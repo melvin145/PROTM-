@@ -169,10 +169,29 @@
     </section>
     </div>
     <section class="product_review">
-    
       <div class="review__container">
-        <h1>Reviews</h1>
-        <div class="grid">
+      <h1>Reviews</h1>
+
+      <div class="review_form">
+        <div class="review_top">
+          <div class="user_img">
+          <img src="/media/{{request.user.profile.profile_image}}" alt="">
+          </div>
+          <div class="user_detail">
+          <p>{{request.user.first_name}}</p>
+          <span>post your review</span>
+          </div>  
+        </div>
+        <div class="form">
+          <form action="" method="post">
+            {% csrf_token %}
+            <textarea name="review" id="" cols="10" rows="10"></textarea>
+            <button type="submit">submit</button>
+          </form>
+        </div>
+      </div>
+
+   <div class="grid">
          {% for review in review %}
           <div class="review">
             <div class="review_top">

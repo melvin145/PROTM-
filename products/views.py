@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Product,Review
 from accounts.models import Cart,CartItems,Profile
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 # Create your views here.
 def Home(requests):
       products=Product.objects.all()[0:5]
@@ -11,8 +12,17 @@ def Home(requests):
       return render(requests ,'Home.html',{'products':products,'trending':trending,'whey':whey})
 
 def get_product(request,slug):
+      
       product=Product.objects.get(slug=slug)
-      review=Review.objects.filter(product=product)
+      if request.method=='POST':
+            review=request.POST.get('review')
+            if review!=" ":
+                  new_review=Review.objects.create(product=product,user=request.user,content=review)
+                  new_review.save()
+                  return HttpResponseRedirect(request.path_info)
+            
+      review=Review.objects.filter(product=product).order_by("-created_at")
+      print(request.user)
       return render(request,'ProductDetails.html',{'product':product,'review':review})
 
 def add_to_cart(request,slug):
