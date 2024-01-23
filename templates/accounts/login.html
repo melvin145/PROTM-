@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 flex justify-center h-screen items-center">
+      <div class="p-10 bg-white rounded max-w-lg w-full m-auto">
+            <h1 class='text-xl text-slate-600 my-3'>Login</h1>
+      <form  method="post" class="flex flex-col gap-3 w-full">
+            {% csrf_token %}
+            <input  class="p-4 bg-gray-100 rounded"type="email" placeholder="email" name="email">
+            <input  class="p-4 bg-gray-100 rounded"type="password" placeholder="password" name="password">
+            <button  class="p-4 rounded bg-indigo-400 text-white text-lg" type="submit">login</button>
+      </form>
+      </div>
+</body>
+</html>
