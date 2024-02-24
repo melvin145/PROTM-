@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <link rel="stylesheet" href="/media/css/style.css">
+
+      <link rel="stylesheet" href="/media/src/output.css">
+
+      <style>
+        /**  --primary:#7c3aed;
+      --primary-light:#9b69f1;
+      --primary-dark:#5f14e0;***/
+      </style>
+</head>
+<body>
+{% include 'base/navbar.html' %}
+{% include 'base/sidebar.html' %}
+
+  <section class="main_2">
+    <div class="flex gap-2 py-4">
+      <div class="flex items-center pb-4 relative">
+      <button id="dropdownDefault" data-dropdown-toggle="dropdown" 
+        class="text-gray-900 bg-white border-gray-200 border-2 bg-none hover:bg-primary-800  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 btn"
+        type="button"">
+        Sort by
+        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+    
+      <!-- Dropdown menu -->
+      <div id="dropdown1" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow  dark:bg-gray-700 drop">
+        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+          <li class="flex items-center">
+          <input id="apple" type="checkbox" value="-created_at"
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 sort_item" />
+            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Most recent
+            </label>
+          </li>
+          <li class="flex items-center" >
+            <input id="fitbit" type="checkbox" value="price"
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 sort_item" />
+            <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Price:Low to High
+            </label>
+          </li>
+          <li class="flex items-center">
+            <input id="dell" type="checkbox" value="-price"
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 sort_item" />
+            <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Price:High to Low
+            </label>
+          </li>
+    
+          
+        </ul>
+      </div>
+      </div>
+      <div class="flex items-center pb-4 relative">
+      <button id="dropdownDefault" data-dropdown-toggle="dropdown" 
+        class="text-gray-900 bg-white border-black bg-transparent hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 btn"
+        type="button"">
+        Filter
+        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+    
+      <!-- Dropdown menu -->
+      <div id="dropdown" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow  dark:bg-gray-700 drop">
+        <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+          Category
+        </h6>
+        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+
+      <li id="" class="flex items-center category_item">
+            <input type="checkbox" onchange="filterByCategory()" value="all"
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              all
+            </label>
+          </li>
+          {% for category in category %}
+          <li id="{{category.slug}}"  class="flex items-center category_item">
+            <input type="checkbox" onchange="filterByCategory()" value="{{category.category_name}}"
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              {{category.category_name}}
+            </label>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      </div>
+    </div>
+      <div class="grid_container_3">
+      {% for product in products %}
+        <div class="card">
+          <div class="card__img">
+            <img src="/media/{{product.product_image}}" alt="">
+          </div>
+          <div class="card__details">
+            <span>{{product.category}}</span>
+            <h1>{{product.product_name}}</h1>
+            <div class="card__bottom">
+              <p class="price">{{product.price}}$</p>
+              <a href=""><i class='bx bxs-plus-circle'></i></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+  </section>
+<script src="/media/script.js"></script>
+</body>
+</html>

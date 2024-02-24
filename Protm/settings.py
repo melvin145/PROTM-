@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base',
     'products',
-    'accounts'
+    'accounts',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -130,7 +131,16 @@ STATICFILES_DIR = {
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'public/static') 
 MEDIA_URL = '/media/'
 
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RAZORPAY_ID='rzp_test_bUvzTs6DQJyBjZ'
+RAZORPAY_SECRET='EhaeI1QKEnn38udan8BDVxeO'

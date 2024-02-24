@@ -277,12 +277,12 @@ body{
 
 /**************************************carousel****************************************************/
 .slider{
-      height: 90vh;
+      height: 95vh;
       padding: 2rem 1rem;
 }
 .slider__container{
       position: relative;
-      max-width: 95%;
+      max-width: 100%;
       display: flex;
       justify-content: center;
       margin:auto;
@@ -389,7 +389,7 @@ body{
       margin-block: 3rem;
 }
 .categories__container{
-      max-width: 92%;
+      max-width: 95%;
       margin: auto;
       width: 100%;
 }
@@ -504,7 +504,7 @@ body{
       margin-block: 3rem;
 }
 .product__container{
-      max-width: 92%;
+      max-width: 95%;
       margin: auto;
       width: 100%;
 }
@@ -523,6 +523,7 @@ body{
       width: 100%;
       border-radius: 10px;
       padding: 10px;
+      height: 100%;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       border:  1px solid  var(--border);
 }
@@ -681,6 +682,30 @@ body{
 .inner_slider.left{
       animation: slide 30s linear infinite reverse;
 }
+
+
+
+/*****************allproducts,products_bycategories********************/
+.main_2{
+      max-width: 95%;
+      margin-inline: auto;
+      margin-top: 1rem;
+      width: 100%;
+}
+.grid_container_3{
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 1rem;
+      width: 100%;
+}
+
+
+
+
+
+
+
+
 @keyframes slide {
             to{
                   transform: translate(-50%);

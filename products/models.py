@@ -1,6 +1,7 @@
 from django.db import models
 from base.models import BaseModel
 from django.utils.text import slugify
+from django.core.validators import MinValueValidator,MaxValueValidator
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -22,14 +23,26 @@ class Product(BaseModel):
       slug=models.SlugField(unique=True,null=True,blank=True)
       category=models.ForeignKey(Category, on_delete=models.CASCADE,related_name='products')
       price=models.IntegerField()
+      updated_price=models.IntegerField(null=True,blank=True)
       description=models.TextField()
       weight=models.IntegerField()
       serve_size=models.IntegerField()
       no_of_servings=models.IntegerField()
+      quantity=models.PositiveIntegerField(default=1,validators=[MinValueValidator(1)])
 
       def save(self,*args,**kwargs):
             self.slug=slugify(self.product_name)
+            self.updated_price=self.price * self.quantity
             super(Product,self).save(*args,**kwargs)
+
+            ###
+            # price=10 qnt=2
+            #price=price(10)*2
+            #price=20 qnt=4
+            #updated_price=price(10)*4
+            #updated_price=40
+            # updated_price=price(10)*30
+            # updated_price =price()
       
       def __str__(self):
             return self.product_name
@@ -41,3 +54,5 @@ class Review(BaseModel):
 
       def __str__(self):
             return self.user.username + '\t review'
+      
+

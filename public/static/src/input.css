@@ -1,0 +1,10 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+      .dropdown{
+        @apply absolute top-10 left-5 block;
+      }
+    }
