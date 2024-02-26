@@ -28,7 +28,10 @@
       --text-lighter:#8675a3;
       --border:#ddd9e5;
       --navbar-height:70px;
-      --sidebar-width:76px
+      --sidebar-width:76px;
+}
+:root{
+      scrollbar-width: none;
 }
 a{
   text-decoration: none;    
@@ -59,6 +62,7 @@ body{
 body{
       padding-left: var(--sidebar-width);
       overflow-x: hidden;
+      scrollbar-width: thin;
 }
 .navbar{
       max-width: 95%;

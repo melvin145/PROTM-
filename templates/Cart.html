@@ -16,8 +16,8 @@
       --background:#efedf3;
       --foreground:#fbfafc;-->
       {% if cartitems %}
-        <section class="grid grid-cols-3 gap-4 max-w-6xl  min-h-screen py-16 m-auto w-full relative top-0">
-          <section class="bg-gray-100  col-span-2" style="background-color: #fbfafc;">
+        <section class="grid grid-cols-5 gap-4 max-w-6xl  min-h-screen py-16 m-auto w-full relative top-0">
+          <section class="bg-gray-100  col-span-3" style="background-color: #fbfafc;">
             <div class="mx-auto px-4 py-6 ">
               <div class="mx-auto  max-w-4xl  rounded">
       
@@ -68,13 +68,13 @@
               </div>
             </div>
           </section>
-          <section class="sticky top-0">
+          <section class="sticky top- col-span-2">
             <div class="mx-auto max-w-4xl  rounded">
               <div class="bg-white shadow rounded" style=" background-color: #fbfafc;">
                 <div class="px-4 py-6 sm:px-8 sm:py-10">
                   <div class="flow-root">
                   <h1 class="capitalize text-2xl font-semibold">order summary</h1>
-                  <div class="mt-6 border-t border-b py-2 border-indigo-300 ">
+                  <!--<div class="mt-6 border-t border-b py-2 border-indigo-300 ">
                     <h4 class="mb-2 font-medium text-base text-gray-800">Shipping address</h4>
 
                     <div class="hidden">
@@ -150,7 +150,7 @@
               
                     
                     
-                    </div>
+                    </div>-->
                   <div class="mt-6 border-t border-b py-2 border-indigo-300">
                     <div class="flex items-center justify-between">
                       <p class="text-sm text-white-400">Items</p>
@@ -177,8 +177,7 @@
                   <a href="{%url 'payment' cart.uuid %}">
                   
                     <button type="button" class="group inline-flex w-full items-center justify-center rounded-md  px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800 " style="background-color:#7a5af5 ;">
-                      Pay Now
-                   
+                      Checkout
                     </button>
                   </a>
                   </div>

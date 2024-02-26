@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Product,Review
-from accounts.models import Cart,CartItems,Profile,Order
+from accounts.models import Cart,CartItems,Profile,Order,Address
 from .models import Category
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -108,6 +108,8 @@ def list_products(request):
 
 @csrf_exempt
 def payment(request,uuid):
+
+      address=Profile.objects.get(user=request.user).address
       
       cart=Cart.objects.get(uuid=uuid)
       client=razorpay.Client(auth=(settings.RAZORPAY_ID,settings.RAZORPAY_SECRET))
@@ -115,7 +117,8 @@ def payment(request,uuid):
 
       context={
             'order_amount':cart.get_cart_total(),
-            'payment':payment
+            'payment':payment,
+            'address':address
             }
       
       order,_=Order.objects.get_or_create(user=request.user,order_items=cart,order_amount=cart.get_cart_total(),)
@@ -127,6 +130,23 @@ def payment(request,uuid):
 
 @csrf_exempt
 def payment_success(request):
+      userprofile=Profile.objects.get(user=request.user)
+      if request.method=='POST' and userprofile.address==None:
+            name=request.POST.get('name')
+            address=request.POST.get('address')
+            city=request.POST.get('city')
+            pincode=request.POST.get('pincode')
+            number=request.POST.get('phonenumber')
+
+            address_obj=Address.objects.create(name=name,address=address,city=city,pincode=pincode,number=number)
+            address_obj.save()
+
+
+            userprofile.address=address_obj
+            userprofile.save()
+      else:
+            address=userprofile.address
+      
       order_id=request.GET.get('order_id')
       order=Order.objects.get(order_id=order_id)
       print(order.order_items)
