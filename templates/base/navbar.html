@@ -12,10 +12,10 @@
 
 <body>
 {% block content %}
-  <div class="header" >
+  <div class="header shadow-sm" >
     <nav class="navbar">
       <div class="navbar__logo">
-        <i class='bx bx-menu' id="toggle" onclick='ShowSidebar(toggle)'></i>
+        <!---<i class='bx bx-menu' id="toggle" onclick='ShowSidebar(toggle)'></i>-->
         
        <a href="{% url 'home' %}"><span>Protm</span></a>
       </div>
@@ -23,8 +23,10 @@
         <input type="search" placeholder="Search..." / id="search" onchange="SearchProduct()">
         <button><i class='bx bx-search'></i></button>
       </div>
-      <div class="other">
-        <a href="{% url 'cart' %}"><i class='bx bxs-cart'></i> <span class="cart-count">{{request.user.profile.get_cart_count}}</span></a>
+      <div class="other flex gap-6  items-center justify-center ">
+       <a href="{% url 'cart' %}" class="text-xs rounded-full bg-indigo-600 w-12 h-12"><img class="w-full h-full bg-cover rounded-full" src='/media/{{request.user.profile.profile_image}}' ></a>
+
+        <a href="{% url 'cart' %}" class="text-center align-middle"><i class='bx bxs-cart h-full mt-1'></i> <span class="cart-count">{{request.user.profile.get_cart_count}}</span></a>
       </div>
     </nav>
   </div>

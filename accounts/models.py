@@ -39,11 +39,12 @@ class Cart(BaseModel):
       
       def get_cart_total(self):
             subtotal_amount=self.get_subtotal()
-            delivery_charge=500
-            if self.get_subtotal()<=2000:
-                  subtotal_amount+=delivery_charge
-                  return subtotal_amount
+            delivery_charge=500            
+            subtotal_amount+=delivery_charge
             return subtotal_amount
+
+      def get_all_items(self):
+            return self.cart_item.all()
             
 
       
@@ -71,11 +72,12 @@ class Order(BaseModel):
       order_items=models.OneToOneField(Cart,on_delete=models.CASCADE,blank=True,null=True)
       order_amount=models.IntegerField(null=True,blank=True)
       status_choices=(
-            (1,'NOT PACKED'),
-            (2,'PACKED'),
-            (3, 'Shipped'),
-             (4, 'Delivered'),
+            ('PENDING','NOT PACKED'),
+            ('PACKED','PACKED'),
+            ('SHIPPED', 'Shipped'),
+             ('DELIVERED', 'Delivered'),
             )
+      status=models.CharField(max_length=20,choices=status_choices,default='1')
       payment_status_choices = (
         (1, 'SUCCESS'),
         (2, 'FAILURE' ),

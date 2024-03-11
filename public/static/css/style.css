@@ -130,7 +130,7 @@ body{
       position: relative;
 }
 .other i{
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--text-light);
 }
 .cart-count{
@@ -145,11 +145,11 @@ body{
 }
 /**************************************************sidebar*************************************************/
 .sidebar{
-      position: fixed;
+      position: relative;
       top: 0;
       left: 0px;
       overflow: hidden;
-      min-height: 400vh;
+   
       width: 170px;
       color: white;
       padding: 0rem 1rem 2rem 1rem;
@@ -181,12 +181,14 @@ body{
       flex-direction: column;
       gap: .5rem;
       width: 100%;
+      height: 100%;
 }
 .sidebar__list{
       display: grid;
       grid-template-columns: max-content max-content;
       gap: 2rem;
       width: 100%;
+      height: 100%;
       align-items: center;
       padding: .625rem .8rem;
       border-radius: .5rem;
@@ -281,12 +283,12 @@ body{
 
 /**************************************carousel****************************************************/
 .slider{
-      height: 95vh;
+      height: 85vh;
       padding: 2rem 1rem;
 }
 .slider__container{
       position: relative;
-      max-width: 100%;
+      max-width:95%;
       display: flex;
       justify-content: center;
       margin:auto;
@@ -643,6 +645,7 @@ body{
 /********************slider2******************************/
 .slider_2{
       width: 100%;
+      height: 50vh;
       display: grid;
       padding-top: 1rem;
       place-content: center;
@@ -668,7 +671,7 @@ body{
       width: max-content;
       flex-wrap: nowrap;
       gap: 1rem;
-      animation: slide 30s linear infinite forwards;
+      animation: slide 50s linear infinite forwards;
       margin-bottom: 1rem;
 }
 .inner_slider img{
@@ -681,10 +684,10 @@ body{
       display: flex;
       justify-content: center;
       width: 150px;
-      background-color: #262632;
+      background-color: #826fff;
 }
 .inner_slider.left{
-      animation: slide 30s linear infinite reverse;
+      animation: slide 70s linear infinite forwards;
 }
 
 
@@ -748,7 +751,7 @@ body{
       .grid__container{
             display: grid;
             margin-top: 10px;
-            grid-template-columns: repeat(2,1fr);
+            grid-template-columns: repeat(1,1fr);
             gap: .5rem;
       }   
       .trending__container{
@@ -764,7 +767,7 @@ body{
       }
       .items .left h1{
             text-transform: uppercase;
-            font-size: .8rem;
+            font-size: 1.3rem;
             width: 100%;
             color: var(--background);
       }

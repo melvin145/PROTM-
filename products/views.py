@@ -8,9 +8,11 @@ from django.db.models import Q
 import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required
 def Home(requests):
       products=Product.objects.all()[0:5]
       trending=Product.objects.all()[0:5]
@@ -23,14 +25,17 @@ def get_product(request,slug):
       product=Product.objects.get(slug=slug)
       if request.method=='POST':
             review=request.POST.get('review')
+            print(review)
             if review!=" ":
-                  new_review=Review.objects.create(product=product,user=request.user,content=review)
+                  new_review=Review.objects.create(product=product,user=request.user,description=review)
+                  new_review.description=review
                   new_review.save()
                   return HttpResponseRedirect(request.path_info)
             
       review=Review.objects.filter(product=product).order_by("-created_at")
-      print(request.user)
-      return render(request,'ProductDetails.html',{'product':product,'review':review})
+      similar_products=Product.objects.filter(Q(category=product.category)|Q(price=product.price))
+
+      return render(request,'ProductDetails.html',{'product':product,'review':review,'similar_products':similar_products})
 
 
 def add_to_cart(request,slug):
@@ -70,8 +75,8 @@ def remove_from_cart(request,slug):
 def get_cart(request):
       try:
             cart=Cart.objects.get(user=request.user,is_paid=False)
-            
-            cartitems=CartItems.objects.filter(cart=cart)
+            #cartitems=CartItems.objects.filter(cart=cart)
+            cartitems=cart.get_all_items()
             subtotal_amount=cart.get_subtotal()
             total_amount=cart.get_cart_total()
             return render(request,'Cart.html',{'cartitems':cartitems,"total":total_amount,'subtotal':subtotal_amount,'cart':cart})
@@ -106,20 +111,45 @@ def list_products(request):
       category=Category.objects.all()
       return render(request,"products.html",{'products':products,'category':category})
 
-@csrf_exempt
 def payment(request,uuid):
-
-      address=Profile.objects.get(user=request.user).address
+      userprofile=Profile.objects.get(user=request.user)
+      names=request.GET.get('name')
+      print(names)
+      if request.method == 'GET' and userprofile.address == None:
+            print("sjfjas")
+            name=request.GET.get('name')
+            print(name)
+            address=request.GET.get('address')
+            city=request.GET.get('city')
+            pincode=request.GET.get('pincode')
+            number=request.GET.get('phonenumber')
+          
+            address_obj=Address.objects.create(name=name)
+            print(address_obj)
+            if address_obj!=None:
+                  print('s')
+                  address_obj.address=address
+                  address_obj.city=city
+                  address_obj.pincode=pincode
+                  address_obj.number=number
+                  address_obj.save()
+                  userprofile.address=address_obj
+                  userprofile.save()
+                  print(userprofile.address)
+      else:
+            address_obj=Profile.objects.get(user=request.user).address
       
+
+      #address=Profile.objects.get(user=request.user).address      
       cart=Cart.objects.get(uuid=uuid)
       client=razorpay.Client(auth=(settings.RAZORPAY_ID,settings.RAZORPAY_SECRET))
       payment=client.order.create({'amount':cart.get_cart_total()*100,'currency':'INR'})
 
       context={
-            'order_amount':cart.get_cart_total(),
-            'payment':payment,
-            'address':address
-            }
+      'order_amount':cart.get_cart_total(),
+      'payment':payment,
+      'address':address_obj
+      }
       
       order,_=Order.objects.get_or_create(user=request.user,order_items=cart,order_amount=cart.get_cart_total(),)
       order.order_id=payment['id']
@@ -130,23 +160,6 @@ def payment(request,uuid):
 
 @csrf_exempt
 def payment_success(request):
-      userprofile=Profile.objects.get(user=request.user)
-      if request.method=='POST' and userprofile.address==None:
-            name=request.POST.get('name')
-            address=request.POST.get('address')
-            city=request.POST.get('city')
-            pincode=request.POST.get('pincode')
-            number=request.POST.get('phonenumber')
-
-            address_obj=Address.objects.create(name=name,address=address,city=city,pincode=pincode,number=number)
-            address_obj.save()
-
-
-            userprofile.address=address_obj
-            userprofile.save()
-      else:
-            address=userprofile.address
-      
       order_id=request.GET.get('order_id')
       order=Order.objects.get(order_id=order_id)
       print(order.order_items)
@@ -154,6 +167,19 @@ def payment_success(request):
       order.order_items.save()
       order.save()
       return render(request,'success.html')
-      
 
+def allorders(request):
+      try:
+            order=Order.objects.filter(user=request.user)
+            print(order)
+      except:
+            return render(request,'allorder.html')
+      return render(request,'allorder.html',{'order':order})
 
+def order_details(request,id):
+      order=Order.objects.get(order_id=id)
+      cart_items=order.order_items.get_all_items()
+      profile=Profile.objects.get(user=request.user)
+      address=profile.address
+      print(address.name)
+      return render(request,'order_detail.html',{'order':order,'cart_items':cart_items,'address':address})

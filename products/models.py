@@ -29,6 +29,11 @@ class Product(BaseModel):
       serve_size=models.IntegerField()
       no_of_servings=models.IntegerField()
       quantity=models.PositiveIntegerField(default=1,validators=[MinValueValidator(1)])
+      flavour=models.CharField(max_length=100,blank=True,null=True)
+      expiry=models.CharField(max_length=100,null=True,blank=True)
+      brand=models.CharField(max_length=100,null=True,blank=True)
+      when_to_use=models.TextField(null=True,blank=True)
+      how_to_use=models.TextField(null=True,blank=True)
 
       def save(self,*args,**kwargs):
             self.slug=slugify(self.product_name)
@@ -50,7 +55,7 @@ class Product(BaseModel):
 class Review(BaseModel):
       product=models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
       user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
-      content=models.TextField()
+      description=models.TextField(null=True,blank=True)
 
       def __str__(self):
             return self.user.username + '\t review'

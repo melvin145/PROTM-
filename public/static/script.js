@@ -22,26 +22,30 @@ navbtn.forEach((nav,i)=>{
             ShowSlide(i);
       })
 })
-
+const sidebarlinks=document.querySelectorAll(".nav__link");
 
 function setActive(link){
       sidebarlinks.forEach((link)=>{
+            console.log(link.id)
             link.classList.remove('active');
       })
       link.classList.add("active");
       localStorage.setItem('active',link.id)
 }
-const sidebarlinks=document.querySelectorAll(".nav__link");
+
 function CheckActive(){   
-      if(localStorage.getItem('active')!=' '){
+      if(localStorage.getItem('active')!==null){
             document.getElementById(localStorage.getItem('active')).classList.add('active')
       }
+      
       sidebarlinks.forEach((link)=>{
       link.addEventListener('click',()=>{
       setActive(link);
       })
       })
+
 }
+
 CheckActive()
 
 function showFilter(){

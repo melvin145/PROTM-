@@ -74,38 +74,29 @@
                 <div class="px-4 py-6 sm:px-8 sm:py-10">
                   <div class="flow-root">
                   <h1 class="capitalize text-2xl font-semibold">order summary</h1>
-                  <!--<div class="mt-6 border-t border-b py-2 border-indigo-300 ">
-                    <h4 class="mb-2 font-medium text-base text-gray-800">Shipping address</h4>
-
-                    <div class="hidden">
-                      <p class="font-sm text-sm text-gray-600 mb-1">melvin mathai</p>
-                      <p class="font-sm text-sm text-gray-600 mb-1">machad thanikudam,kattilapoovam</p>
-                      <p class="font-sm text-sm text-gray-600 mb-1">thrissur,kerala,680028</p>
-                      <p class="font-sm text-sm  text-gray-600 mb-2">9633607253</p>
-                      <a href="" class="text-indigo-600 mt-1 text-sm">Edit</a>
-                    </div>
+     
+                <form class="flex flex-col gap-4 mt-5" method="get" action="{% url 'payment' cart.uuid %}">                      
                     
-                  <form class="flex flex-col gap-4 mt-5">
                       <div>
                         <p class="block mb-2 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                           Name
                         </p>
                         <div class="relative h-10 w-full min-w-[200px]">
-                          <input type="name" placeholder="enter your username"
+                          <input type="name" name="name"  id="name" placeholder="enter your username" required
                             class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
   
                         </div>
                       </div>
                    
-
+  
                       <div>
-                        <p class="block mb-2 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <p class="block mb-2 font-sans text-sm antialiased  font-medium leading-normal text-blue-gray-900">
                           Address
                         </p>
                         <div class="relative h-10 w-full min-w-[200px]">
-                          <input type="name" placeholder="enter your username"
+                          <input id="address" type="text" name="address" placeholder="Enter your shipping address" required
                             class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
-
+  
                         </div>
                       </div>
                       <div class="my-1">
@@ -116,7 +107,7 @@
                               City
                             </p>
                             <div class="relative h-10 w-full min-w-[200px] ">
-                              <input placeholder="thrissur"
+                              <input id="city" placeholder="thrissur" name="city"  required
                                 class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                 value="" />
                               <label
@@ -128,7 +119,7 @@
                               pincode
                             </p>
                             <div class="relative h-10 w-full min-w-[100px] ">
-                              <input placeholder="680053"
+                              <input id="pincode" placeholder="680053" name="pincode" required
                                 class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
                               <label
                                 class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
@@ -139,18 +130,17 @@
                           Phone Number
                         </p>
                         <div class="relative h-10 w-full min-w-[200px]">
-                          <input placeholder="9289320132"
+                          <input id="number" placeholder="9289320132" name="phonenumber" required
                             class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
                           <label
                             class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                         </div>
                       </div>
+                 
+                    
+                  
                       
-                  </form>
-              
-                    
-                    
-                    </div>-->
+                 
                   <div class="mt-6 border-t border-b py-2 border-indigo-300">
                     <div class="flex items-center justify-between">
                       <p class="text-sm text-white-400">Items</p>
@@ -176,18 +166,23 @@
                   
                   <a href="{%url 'payment' cart.uuid %}">
                   
-                    <button type="button" class="group inline-flex w-full items-center justify-center rounded-md  px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800 " style="background-color:#7a5af5 ;">
+                    <button type="submit" class="group inline-flex w-full items-center justify-center rounded-md  px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800 " style="background-color:#7a5af5 ;">
                       Checkout
                     </button>
                   </a>
                   </div>
+                </form>
                 </div>
+             
               </div>
             </div>
           </div>
           </section>
         </section>
+  
+
         {% endif %}
+      
         <script src="/media/script.js"></script>
 
 </body>

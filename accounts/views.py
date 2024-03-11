@@ -3,19 +3,23 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from .models import Profile,Order
+from products.views import Home
 # Create your views here.
 def Login(request):
       if request.method=='POST':
 
             email=request.POST.get('email')
             password=request.POST.get('password')
-            user_obj=User.objects.filter(username=email)
-
-            if not user_obj.exists():
+            user_obj=User.objects.filter(username=email).first()
+            print(email,password)
+            if not user_obj:
                   messages.warning(request,'Account doesnt exist')
-            user_obj=authenticate(username=email,password=password)
+            authenticate(email=email,password=password)
+            print(user_obj)
 
             if user_obj:
+                  print('logined')
                   login(request,user_obj)
                   return redirect('/')
                   
@@ -43,3 +47,17 @@ def Register(request):
                   
             
       return render(request,'accounts/signup.html')
+
+def user_profile(request):
+      profile=Profile.objects.get(user=request.user)
+      orders=Order.objects.filter(user=request.user)
+      context={
+            'profile':profile,
+            'orders':orders
+      }
+      return render(request,'profile.html',context)
+
+def Logout(request):
+      logout(request)
+      return redirect(Login)
+

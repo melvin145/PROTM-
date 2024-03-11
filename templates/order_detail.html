@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-indigo-100">
+      {% include 'base/sidebar.html' %}
+      <section class="min-h-screen py-10 bg-none">
+            <div class="sm:max-w-[90%] max-w-[95%] m-auto  h-full sm:grid sm:grid-cols-4 flex flex-col  gap-4 rounded-lg ">
+                  <div class="col-span-3 rounded-md p-3 shadow-lg bg-slate-100">
+                        <div class="relative w-full sm:h-40 h-36 py-12 sm:px-10 px-3 bg-indigo-400 rounded-md">
+                              <h1 class="sm:text-3xl text-xl text-wrap font-bold text-white">#{{order.order_id}}</h1>
+                              <p class="sm:text-base text-sm font-semibold py-2 px-3 text-slate-200">{{order.created_at}}</p>
+                        </div>
+                        <div class="sm:py-16 py-8 max-w-[90%] m-auto">
+                              <div class="flex flex-col">
+                                    <div class="-m-1.5 overflow-x-auto">
+                                      <div class="p-1.5 min-w-full inline-block align-middle">
+                                        <div class="overflow-hidden">
+                                          <table class="min-w-full">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Item</th>
+                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Category</th>
+                                                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                                                <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Price</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                                {%for item in cart_items%}
+                                              <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap  capitalize sm:text-sm text-xs font-medium text-gray-700 dark:text-gray-200">{{item.product.product_name}}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap capitalize sm:text-sm text-xs text-gray-700 dark:text-gray-200">{{item.product.category.category_name}}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap capitalize sm:text-sm text-xs text-gray-700 dark:text-gray-200">{{item.product.quantity}}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap capitalize sm:text-end text-xs text-sm font-medium  text-gray-700 dark:text-gray-200 ">{{item.product.price}}</td>
+                                              </tr>
+                                              {% endfor %}
+                                  
+
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                        </div>
+
+                        <div class="sm:max-w-[85%] max-w-[90%] m-auto  flex sm:flex-row flex-col justify-between gap-10 pb-8">
+                              <div class="flex justify-between sm:gap-16 gap-2">
+                                    <div>
+                                          <h1 class="sm:text-sm text-xs py-1 text-slate-600">Customer Details:</h1>
+                                          <h1 class="sm:text-base text-sm py-1 font-semibold text-slate-800">{{address.name}}</h1>
+                                          <h1 class="sm:text-sm  text-xs py-1 text-slate-600">{{address.address}}</h1>
+                                    </div>
+                                    <div class="justify-end text-right">
+                                          <h1 class="sm:text-sm text-xs py-1 text-slate-600">{{address.number}}</h1>
+                                          <h1>{{reqeust.user.email}}</h1>
+                                          <h1 class="sm:text-sm text-xs py-1 text-slate-600">{{address.city}}</h1>
+                                          <h1 class="sm:text-sm text-xs py-1 text-slate-600">{{address.pincode}}</h1>
+                                    </div>
+                              </div>
+
+                              <div >
+                                    <div class="flex justify-between gap-20 pb-2">
+                                          <h1 class="sm:text-base text-sm font-normal">Total</h1>
+                                          <h1 class="sm:text-base  text-sm font-semibold text-left">₹{{order.order_items.get_subtotal}}</h1>
+                                    </div>
+                                    <div class="flex justify-between gap-20 mb-2 pb-2 border-b border-slate-400">
+                                          <h1 class="sm:text-base text-sm font-normal">Shipping</h1>
+                                          <h1 class="sm:text-base text-sm font-semibold ">₹500</h1>
+                                    </div>
+                                    <div class="flex justify-between gap-20 ">
+                                          <h1 class="sm:text-base text-sm font-normal">Order Total</h1>
+                                          <h1 class="sm:text-base text-sm font-semibold text-left">₹{{order.order_items.get_cart_total}}</h1>
+                                    </div>
+                                    
+                              </div>
+                        </div>
+
+
+                  </div>
+                  <div class="w-full sm:h-full h-96  rounded-lg px-6 sm:py-10 py-5 bg-slate-100 shadow-lg col-span-1">
+                        <h2 class="sm:text-xl text-lg font-semibold text-slate-800">Order Status</h2>
+                        <div class="flex flex-col  justify-around h-full">
+                              <div class="flex  justify-between items-center ">
+                                    <div  class="flex sm:gap-4 gap-4">
+                                          <div class="w-10 h-10 border-gray-300 shadow-md border rounded-full flex justify-center text-center items-center">
+                                                <i class='bx bxs-phone text-blue-800 sm:text-xl text-lg'></i>
+                                          </div>
+                                          <div>
+                                                <h1 class="sm:text-base text-sm text-slate-600">Order Placed</h1>
+                                                <h3 class="text-xs text-slate-400">27 jan 2024 </h3>
+                                          </div>
+                                    </div>
+                                    <div>
+                                          <i class='bx bx-check-circle text-green-400 text-2xl'></i>
+                                    </div>
+                              </div>
+                              <div class="flex  justify-between items-center ">
+                                    <div  class="flex sm:gap-4 gap-4">
+                                          <div class="w-10 h-10 border-gray-300 shadow-md border rounded-full flex justify-center text-center items-center">
+                                                <i class='bx bxs-package text-blue-800 sm:text-xl text-lg'></i>
+                                          </div>
+                                          <div>
+                                                <h1 class="sm:text-base text-sm text-slate-600">Order Packed</h1>
+                                                <h3 class="text-xs text-slate-400">28 jan 2024 </h3>
+                                          </div>
+                                    </div>
+                                    <div>
+                                          <i class='bx bx-check-circle text-green-400 text-2xl'></i>
+                                    </div>
+                              </div>
+                              <div class="flex  justify-between items-center ">
+                                    <div  class="flex sm:gap-4 gap-4">
+                                          <div class="w-10 h-10 border-gray-300 shadow-md border rounded-full flex justify-center text-center items-center">
+                                                <i class='bx bxs-truck text-blue-800 sm:text-xl text-lg'></i>
+                                          </div>
+                                          <div>
+                                                <h1 class="sm:text-base text-sm text-slate-600">Shipped</h1>
+                                                <h3 class="text-xs text-slate-400">27 jan 2024 </h3>
+                                          </div>
+                                    </div>
+                                    <div>
+                                          <i class='bx bx-check-circle text-green-400 text-2xl'></i>
+                                    </div>
+                              </div>
+                              <div class="flex  justify-between items-center ">
+                                    <div  class="flex sm:gap-4 gap-4">
+                                          <div class="w-10 h-10 border-gray-300 shadow-md border rounded-full flex justify-center text-center items-center">
+                                                <i class='bx bx-check text-gray-600 sm:text-xl text-lg'></i>
+                                          </div>
+                                          <div>
+                                                <h1 class="sm:text-base text-sm text-slate-600">Delivered</h1>
+                                                <h3 class="text-xs text-slate-400">27 jan 2024 </h3>
+                                          </div>
+                                    </div>
+                                    <div>
+                                          <i class='bx bx-time-five text-gray-400 text-2xl'></i>
+                                    </div>
+                              </div>
+                             
+                              
+                             
+                        </div>
+                  </div>
+            </div>
+      </section>
+</body>
+</html>
